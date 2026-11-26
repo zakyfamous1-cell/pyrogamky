@@ -1,24 +1,27 @@
 name: Unzip
+
 on:
   workflow_dispatch:
+
 permissions:
   contents: write
+
 jobs:
   unzip:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Unzip
         run: |
-          mkdir /tmp/x
-          unzip -q pyrogam--main.zip -d /tmp/x
-          d=$(ls -d /tmp/x/*/ | head -n1)
-          cp -a "$d". .
-          rm pyrogam--main.zip
+          unzip -o pyrogram--main.zip
+          mv pyrogram--main/* . || true
+          rm -rf pyrogram--main pyrogram--main.zip
+
       - name: Commit
         run: |
           git config user.name "bot"
           git config user.email "bot@users.noreply.github.com"
           git add -A
-          git commit -m "Unzip pyrogam"
+          git commit -m "Unzip pyrogram [skip ci]" || echo "nothing to commit"
           git push
