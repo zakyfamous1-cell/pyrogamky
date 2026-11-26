@@ -10,13 +10,16 @@ jobs:
   unzip:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Unzip
         run: |
-          unzip -o pyrogram--main.zip
-          mv pyrogram--main/* . || true
-          rm -rf pyrogram--main pyrogram--main.zip
+          mkdir tmp_extract
+          unzip -o ./*.zip -d tmp_extract
+          rm -f ./*.zip
+          cp -a tmp_extract/*/. .
+          rm -rf tmp_extract
 
       - name: Commit
         run: |
