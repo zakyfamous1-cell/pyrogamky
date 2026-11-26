@@ -18,6 +18,7 @@ jobs:
           mkdir tmp_extract
           unzip -o ./*.zip -d tmp_extract
           rm -f ./*.zip
+          rm -rf tmp_extract/*/.github
           cp -a tmp_extract/*/. .
           rm -rf tmp_extract
 
